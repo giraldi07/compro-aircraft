@@ -1,65 +1,89 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useQuery, gql } from "@apollo/client";
 
-const gallery = [
-  {
-    id: 1,
-    title: 'Aircraft Maintenance',
-    image: 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&fit=crop&q=80',
-  },
-  {
-    id: 2,
-    title: 'Engine Repair',
-    image: 'https://images.unsplash.com/photo-1429772011165-0c2e054367b8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=80',
-  },
-  {
-    id: 3,
-    title: 'Interior Design',
-    image: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80',
-  },
-  {
-    id: 4,
-    title: 'Parts Inventory',
-    image: 'https://images.unsplash.com/photo-1599467556385-48b57868f038?auto=format&fit=crop&q=80',
-  },
-];
+// Query GraphQL untuk mengambil data halaman 'gallery'
+const GET_GALLERY_PAGE = gql`
+  query GetGalleryPage {
+    page(id: "gallery", idType: URI) {
+      title
+      content
+    }
+  }
+`;
 
 export function Gallery() {
+  const { loading, error, data } = useQuery(GET_GALLERY_PAGE);
+  const [galleryItems, setGalleryItems] = useState<{ src: string; alt: string }[]>([]);
+  const [filteredContent, setFilteredContent] = useState<string>("");
+
+  useEffect(() => {
+    if (data?.page?.content) {
+      const parser = new DOMParser();
+      const htmlDoc = parser.parseFromString(data.page.content, "text/html");
+
+      // Mengambil semua elemen <img> dan menyimpan src serta alt-nya
+      const images = Array.from(htmlDoc.querySelectorAll("img")).map((img) => ({
+        src: img.src,
+        alt: img.getAttribute("alt")?.trim() || "", // Ambil alt dengan getAttribute agar tidak undefined
+      }));
+      setGalleryItems(images);
+
+      // Membersihkan teks dari elemen yang tidak diperlukan
+      const cleanContent = data.page.content.replace(
+        /<(figure|img|gallery|iframe|script|style)[^>]*>.*?<\/\1>/gs,
+        ""
+      );
+      setFilteredContent(cleanContent);
+    }
+  }, [data]);
+
+  if (loading) return <p className="text-center text-gray-600">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">Error: {error.message}</p>;
+
   return (
-    <div className="py-20">
+    <div className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl font-bold mb-6">Our Gallery</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Take a visual journey through our facilities and services.
-          </p>
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-6">
+            {data.page.title}
+          </h1>
+          <div
+            className="text-xl prose prose-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto"
+            dangerouslySetInnerHTML={{ __html: filteredContent }}
+          />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {gallery.map((item, index) => (
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {galleryItems.map((item, index) => (
             <motion.div
-              key={item.id}
+              key={index}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
               className="relative group"
             >
-              <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+              {/* Image Container */}
+              <div className="rounded-lg overflow-hidden shadow-lg dark:shadow-gray-800 relative">
                 <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  src={item.src}
+                  alt={item.alt}
+                  className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-white text-xl font-semibold">{item.title}</h3>
+                {/* Hanya tampilkan teks jika alt tidak kosong */}
+                {item.alt && (
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                    <p className="text-white text-lg font-medium p-4">{item.alt}</p>
                   </div>
-                </div>
+                )}
               </div>
             </motion.div>
           ))}

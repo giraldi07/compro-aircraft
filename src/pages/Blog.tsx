@@ -1,75 +1,91 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import { useQuery, gql } from "@apollo/client";
 
-const posts = [
-  {
-    id: 1,
-    title: 'The Future of Aviation Technology',
-    excerpt: 'Exploring upcoming trends and innovations in aircraft equipment.',
-    image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80',
-    date: '2024-03-15',
-    author: 'John Smith',
-  },
-  {
-    id: 2,
-    title: 'Maintaining Aircraft Equipment',
-    excerpt: 'Best practices for maintaining and servicing aviation equipment.',
-    image: 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&fit=crop&q=80',
-    date: '2024-03-10',
-    author: 'Sarah Johnson',
-  },
-  {
-    id: 3,
-    title: 'Aviation Industry Insights',
-    excerpt: 'Latest developments and trends in the aviation industry.',
-    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80',
-    date: '2024-03-05',
-    author: 'Michael Brown',
-  },
-];
+// GraphQL query untuk mendapatkan posts dari WordPress
+const GET_POSTS = gql`
+  query GetPosts {
+    posts {
+      nodes {
+        id
+        title
+        excerpt
+        date
+        author {
+          node {
+            name
+          }
+        }
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+    }
+  }
+`;
 
 export function Blog() {
+  const { loading, error, data } = useQuery(GET_POSTS);
+
+  if (loading)
+    return <p className="text-center text-gray-600 dark:text-gray-400">Loading...</p>;
+  if (error)
+    return <p className="text-center text-red-500">Error: {error.message}</p>;
+
   return (
-    <div className="py-20">
+    <div className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl font-bold mb-6">Our Blog</h1>
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-6">
+            Our Blog
+          </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Stay updated with the latest news and insights from the aviation industry.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post, index) => (
+        {/* Blog Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {data.posts.nodes.map((post: any, index: number) => (
             <motion.article
               key={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden group"
             >
-              <div className="relative h-48">
+              {/* Featured Image */}
+              <div className="relative h-56 sm:h-64 md:h-48 lg:h-56 overflow-hidden">
                 <img
-                  src={post.image}
+                  src={post.featuredImage?.node?.sourceUrl}
                   alt={post.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
                   {new Date(post.date).toLocaleDateString()}
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{post.excerpt}</p>
-                <div className="flex items-center justify-between">
+
+              {/* Blog Content */}
+              <div className="p-6 flex flex-col">
+                <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100">
+                  {post.title}
+                </h3>
+                <p
+                  className="text-gray-600 dark:text-gray-400 flex-1"
+                  dangerouslySetInnerHTML={{ __html: post.excerpt }}
+                />
+                <div className="flex items-center justify-between mt-4">
                   <span className="text-sm text-gray-500 dark:text-gray-400">
-                    By {post.author}
+                    By {post.author.node.name}
                   </span>
                   <button className="text-blue-600 dark:text-blue-400 hover:underline">
                     Read More
