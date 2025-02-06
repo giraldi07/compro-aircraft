@@ -4,8 +4,8 @@ import { Wrench, PenTool as Tool, Cog, Palette, Plane, Users, Briefcase, LucideI
 
 // GraphQL Query untuk mendapatkan data layanan dari WordPress
 const GET_OUR_SERVICES_PAGE = gql`
-  query GetOurServicesPage {
-    page(id: "our-services", idType: URI) {
+  query {
+    page(id: "37", idType: DATABASE_ID) {
       title
       content
       ourServicesFields {

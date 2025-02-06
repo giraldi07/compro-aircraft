@@ -1,31 +1,34 @@
-import React from 'react';
+import { useQuery, gql } from '@apollo/client';
 import { motion } from 'framer-motion';
 
-const products = [
-  {
-    id: 1,
-    name: 'Aircraft Engines',
-    description: 'High-performance aircraft engines for various aircraft types.',
-    image: 'https://images.unsplash.com/photo-1557800636-894a64c1696f?auto=format&fit=crop&q=80',
-    category: 'Engines',
-  },
-  {
-    id: 2,
-    name: 'Navigation Systems',
-    description: 'Advanced navigation and communication equipment.',
-    image: 'https://images.unsplash.com/photo-1530006498959-b7884e829a04?auto=format&fit=crop&q=80',
-    category: 'Avionics',
-  },
-  {
-    id: 3,
-    name: 'Aircraft Interiors',
-    description: 'Premium interior components and furnishings.',
-    image: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80',
-    category: 'Interiors',
-  },
-];
+const GET_PRODUCTS = gql`
+  query GetProducts {
+    products {
+      nodes {
+        id
+        title
+        productField {
+          productName
+          description
+          category
+          productImage {
+            node {
+              id
+              sourceUrl
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 export function Products() {
+  const { loading, error, data } = useQuery(GET_PRODUCTS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <div className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,7 +45,7 @@ export function Products() {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product, index) => (
+          {data.products.nodes.map((product: any, index: number) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 20 }}
@@ -53,17 +56,17 @@ export function Products() {
             >
               <div className="relative h-48">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.productField.productImage.node.sourceUrl}
+                  alt={product.productField.productName}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
-                  {product.category}
+                  {product.productField.category}
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{product.description}</p>
+                <h3 className="text-xl font-semibold mb-2">{product.productField.productName}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{product.productField.description}</p>
                 <button className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                   Learn More
                 </button>
