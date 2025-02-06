@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const gallery = [
@@ -10,7 +9,7 @@ const gallery = [
   {
     id: 2,
     title: 'Engine Repair',
-    image: 'https://images.unsplash.com/photo-1565456193171-5f40069c8da8?auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1429772011165-0c2e054367b8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=80',
   },
   {
     id: 3,
