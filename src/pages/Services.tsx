@@ -30,7 +30,12 @@ const iconMap: Record<string, LucideIcon> = {
   briefcase: Briefcase,
 };
 
-export function Services() {
+// Tambahkan prop `limit` untuk membatasi jumlah data yang ditampilkan
+interface ServicesProps {
+  limit?: number; // Prop opsional untuk membatasi jumlah layanan yang ditampilkan
+}
+
+export function Services({ limit }: ServicesProps) {
   const { loading, error, data } = useQuery(GET_OUR_SERVICES_PAGE);
 
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
@@ -38,7 +43,10 @@ export function Services() {
 
   // Ambil data halaman dari WordPress
   const page = data.page;
-  const services = page.ourServicesFields?.services || []; // Pastikan ada data layanan
+  const services = page.ourServicesFields?.services || [];
+
+  // Jika `limit` diberikan, batasi jumlah data yang ditampilkan
+  const displayedServices = limit ? services.slice(0, limit) : services;
 
   return (
     <div className="py-20">
@@ -56,8 +64,8 @@ export function Services() {
         </motion.div>
 
         {/* Render daftar layanan dari WordPress */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service: { title: string; description: string; icon: string }, index: number) => {
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {displayedServices.map((service: { title: string; description: string; icon: string }, index: number) => {
             const Icon = iconMap[service.icon] || Wrench; // Default ke Wrench jika tidak ada ikon yang cocok
             return (
               <motion.div

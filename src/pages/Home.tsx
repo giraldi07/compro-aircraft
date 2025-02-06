@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Services } from './Services';
+import { Customers } from './Customers';
+import { Blog } from './Blog';
 
 export function Home() {
   return (
@@ -88,6 +91,125 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* About Us Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+          >
+            {/* Gambar di sebelah kiri */}
+            <div className="w-full h-64 md:h-96 relative rounded-lg overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="About Us"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Konten di sebelah kanan */}
+            <div className="space-y-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                About Us
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                We are a leading aviation company with over 20 years of experience in providing top-notch aircraft equipment, parts, and services. Our mission is to ensure the highest standards of safety and efficiency in the aviation industry.
+              </p>
+              <p className="text-gray-600 dark:text-gray-400">
+                With a team of certified professionals and a global network of partners, we are committed to delivering excellence in every aspect of our operations.
+              </p>
+              <Link
+                to="/about"
+                className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-base sm:text-lg font-medium text-white transition-colors"
+              >
+                Learn More
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Batasi hanya 4 cards yang ditampilkan */}
+          <Services limit={4} />
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Customers />
+        </div>
+      </section>
+
+      {/* News/Blog Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Blog />
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">Contact Us</h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
+              Get in touch with us for any inquiries or to request a quote.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+            <div className="p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4">Our Office</h3>
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">
+                123 Aviation Street, Suite 456<br />
+                Sky City, AV 7890<br />
+                United States
+              </p>
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">
+                Phone: +1 (234) 567-8901<br />
+                Email: info@aviationcompany.com
+              </p>
+            </div>
+
+            <div className="p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4">Send Us a Message</h3>
+              <form>
+                <div className="mb-4">
+                  <label htmlFor="name" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                  <input type="text" id="name" name="name" className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-400" />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="email" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                  <input type="email" id="email" name="email" className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-400" />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="message" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                  <textarea id="message" name="message" rows={4} className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-400"></textarea>
+                </div>
+                <button type="submit" className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-base sm:text-lg font-medium text-white transition-colors">
+                  Send Message
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
@@ -121,3 +243,4 @@ const features = [
     ),
   },
 ];
+
