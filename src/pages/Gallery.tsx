@@ -2,12 +2,23 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useQuery, gql } from "@apollo/client";
 
-// Query GraphQL untuk mengambil data halaman 'gallery'
+// GraphQL Query untuk mengambil data halaman 'gallery' beserta field gallery-nya
 const GET_GALLERY_PAGE = gql`
   query GetGalleryPage {
-    page(id: "gallery", idType: URI) {
+    page(id: "32", idType: DATABASE_ID) {
       title
       content
+      galleryField {
+        gallery(first: 10) {  # Menggunakan "first" untuk mengambil 10 gambar pertama
+          edges {
+            node {
+              id
+              mediaItemUrl  # Ambil URL gambar
+              altText       # Ambil teks alternatif
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -15,26 +26,14 @@ const GET_GALLERY_PAGE = gql`
 export function Gallery() {
   const { loading, error, data } = useQuery(GET_GALLERY_PAGE);
   const [galleryItems, setGalleryItems] = useState<{ src: string; alt: string }[]>([]);
-  const [filteredContent, setFilteredContent] = useState<string>("");
 
   useEffect(() => {
-    if (data?.page?.content) {
-      const parser = new DOMParser();
-      const htmlDoc = parser.parseFromString(data.page.content, "text/html");
-
-      // Mengambil semua elemen <img> dan menyimpan src serta alt-nya
-      const images = Array.from(htmlDoc.querySelectorAll("img")).map((img) => ({
-        src: img.src,
-        alt: img.getAttribute("alt")?.trim() || "", // Ambil alt dengan getAttribute agar tidak undefined
+    if (data?.page?.galleryField?.gallery?.edges) {
+      const images = data.page.galleryField.gallery.edges.map((edge: { node: { mediaItemUrl: any; altText: any } }) => ({
+        src: edge.node.mediaItemUrl, // Gunakan mediaItemUrl untuk gambar
+        alt: edge.node.altText || "", // Gunakan altText dari data ACF
       }));
       setGalleryItems(images);
-
-      // Membersihkan teks dari elemen yang tidak diperlukan
-      const cleanContent = data.page.content.replace(
-        /<(figure|img|gallery|iframe|script|style)[^>]*>.*?<\/\1>/gs,
-        ""
-      );
-      setFilteredContent(cleanContent);
     }
   }, [data]);
 
@@ -56,7 +55,7 @@ export function Gallery() {
           </h1>
           <div
             className="text-xl prose prose-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto"
-            dangerouslySetInnerHTML={{ __html: filteredContent }}
+            dangerouslySetInnerHTML={{ __html: data.page.content }}
           />
         </motion.div>
 

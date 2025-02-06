@@ -1,9 +1,26 @@
-import React from 'react';
+import { useQuery, gql } from '@apollo/client';
 import { motion } from 'framer-motion';
-import { services } from '../data/services';
-import { Wrench, PenTool as Tool, Cog, Palette, Plane, Users, Briefcase } from 'lucide-react';
+import { Wrench, PenTool as Tool, Cog, Palette, Plane, Users, Briefcase, LucideIcon } from 'lucide-react';
 
-const iconMap = {
+// GraphQL Query untuk mendapatkan data layanan dari WordPress
+const GET_OUR_SERVICES_PAGE = gql`
+  query GetOurServicesPage {
+    page(id: "our-services", idType: URI) {
+      title
+      content
+      ourServicesFields {
+        services {
+          title
+          description
+          icon
+        }
+      }
+    }
+  }
+`;
+
+// Mapping ikon berdasarkan keyword yang ada di dalam data WordPress
+const iconMap: Record<string, LucideIcon> = {
   wrench: Wrench,
   tool: Tool,
   cog: Cog,
@@ -14,6 +31,15 @@ const iconMap = {
 };
 
 export function Services() {
+  const { loading, error, data } = useQuery(GET_OUR_SERVICES_PAGE);
+
+  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">Error loading services</p>;
+
+  // Ambil data halaman dari WordPress
+  const page = data.page;
+  const services = page.ourServicesFields?.services || []; // Pastikan ada data layanan
+
   return (
     <div className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,18 +49,19 @@ export function Services() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl font-bold mb-6">Our Services</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Comprehensive aviation solutions tailored to meet your specific needs.
-          </p>
+          <h1 className="text-4xl font-bold mb-6">{page.title}</h1>
+          <div className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+            <div dangerouslySetInnerHTML={{ __html: page.content }} />
+          </div>
         </motion.div>
 
+        {/* Render daftar layanan dari WordPress */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => {
-            const Icon = iconMap[service.icon as keyof typeof iconMap];
+          {services.map((service: { title: string; description: string; icon: string }, index: number) => {
+            const Icon = iconMap[service.icon] || Wrench; // Default ke Wrench jika tidak ada ikon yang cocok
             return (
               <motion.div
-                key={service.id}
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
