@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { GET_CUSTOMERS } from "../graphql/queries";
 import { motion } from "framer-motion";
+import HeroVideo from "../components/HeroVideo";
+import VideoHero from "../videos/herovid2.mp4";
 
 type Customer = {
   title: string;
@@ -18,15 +20,18 @@ type Customer = {
 export function Customers() {
   const { data, loading, error } = useQuery(GET_CUSTOMERS);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p className="text-center text-gray-500 dark:text-gray-400">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">Error: {error.message}</p>;
 
   const customers: Customer[] = data?.customers?.nodes || [];
 
   return (
-    <div className="py-20 dark:bg-gray-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+    <div className="dark:bg-gray-950">
+
+
+      {/* Customers Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -36,8 +41,21 @@ export function Customers() {
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Trusted by leading aviation companies worldwide.
           </p>
-        </motion.div>
+        </motion.div> */}
 
+        {/* Hero Video */}
+        <div className="mb-6">
+          <HeroVideo
+            videoSrc={VideoHero}
+            title="What Did They Say?"
+            description="We have the best clients in the world!"
+            buttonText="Get Started"
+            buttonLink="/contact" // ⬅️ Pakai Link React Router
+          />
+
+        </div>
+
+        {/* Customers List */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {customers.map((customer, index) => (
             <motion.div
