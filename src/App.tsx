@@ -15,7 +15,7 @@ import { BlogDetail }  from './pages/BlogDetail';
 
 // Konfigurasi Apollo Client
 const client = new ApolloClient({
-  uri: 'http://localhost/wordpress/graphql', // Ganti dengan URL GraphQL WordPress lokal
+  uri: 'https://aircraft-compro-1081f7d.ingress-bonde.ewp.live/graphql', // Ganti dengan URL GraphQL WordPress lokal
   cache: new InMemoryCache(),
 });
 
