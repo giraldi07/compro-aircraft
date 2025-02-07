@@ -1,10 +1,10 @@
 import { useQuery, gql } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
-// Mendeklarasikan query
+// Query GraphQL menggunakan idType DATABASE_ID
 const GET_POST_DETAIL = gql`
   query GetPostDetail($id: ID!) {
-    post(id: $id, idType: URI) {
+    post(id: $id, idType: DATABASE_ID) {
       title
       content
       date
@@ -23,37 +23,41 @@ const GET_POST_DETAIL = gql`
 `;
 
 export function BlogDetail() {
-  const { id } = useParams();  // Mengambil id dari URL params
+  const { id } = useParams<{ id?: string }>(); // Ambil ID dari URL
+  const postId = id ?? ""; // Pastikan `id` tidak undefined
 
-  // Pastikan id ada dan valid sebelum lanjut
-  if (!id) {
-    return <p className="text-center">Post ID is missing from URL</p>;
-  }
-
-  let decodedId;
+  // Decode Base64 jika ID dalam format Base64
+  let decodedId = postId;
   try {
-    decodedId = atob(id);  // Decode Base64 ID
-    console.log("Decoded ID:", decodedId);  // Log decoded ID
+    const decodedString = atob(postId); // Decode Base64
+    const match = decodedString.match(/:(\d+)$/); // Ambil angka setelah ":"
+    if (match) {
+      decodedId = match[1]; // Ambil angka dari hasil decode
+    }
   } catch (error) {
-    console.error("Error decoding ID:", error);  // Jika terjadi error saat decode
-    return <p className="text-center text-red-500">Error decoding Post ID</p>;
+    console.error("Error decoding ID:", error);
   }
 
-  // Mengirimkan decoded ID ke query
+  // Pastikan decodedId adalah angka sebelum query
+  if (!decodedId || isNaN(Number(decodedId))) {
+    console.error("Invalid Post ID:", decodedId);
+    return <p className="text-center">Invalid Post ID</p>;
+  }
+
+  // Ambil data post berdasarkan ID yang sudah didecode
   const { loading, error, data } = useQuery(GET_POST_DETAIL, {
-    variables: { id: decodedId },  // Mengirimkan decoded ID ke query
+    variables: { id: decodedId },
   });
 
   if (loading) return <p className="text-center">Loading...</p>;
 
   if (error) {
-    console.error("Error fetching post data:", error);  // Log jika terjadi error pada query
+    console.error("Error fetching post data:", error);
     return <p className="text-center text-red-500">Error: {error.message}</p>;
   }
 
-  // Pengecekan tambahan jika data atau post belum ada
   if (!data || !data.post) {
-    console.error("No post data:", data); // Log untuk debugging
+    console.error("No post data found:", data);
     return <p className="text-center">Post not found</p>;
   }
 
@@ -61,6 +65,19 @@ export function BlogDetail() {
 
   return (
     <div className="max-w-3xl mx-auto py-20 px-4">
+      {/* Breadcrumb untuk navigasi */}
+      <nav className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+        <Link to="/" className="hover:underline">
+          Home
+        </Link>{" "}
+        /{" "}
+        <Link to="/blog" className="hover:underline">
+          Blog
+        </Link>{" "}
+        / <span className="text-gray-700 dark:text-gray-300">{post.title}</span>
+      </nav>
+
+      {/* Konten Blog */}
       <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100">{post.title}</h1>
       <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(post.date).toLocaleDateString()}</p>
       <p className="text-gray-700 dark:text-gray-300">By {post.author.node.name}</p>

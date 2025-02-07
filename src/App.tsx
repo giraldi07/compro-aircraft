@@ -11,7 +11,7 @@ import { Customers } from './pages/Customers';
 import { Blog } from './pages/Blog';
 import { Contact } from './pages/Contact';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { BlogDetail } from './pages/BlogDetail';
+import { BlogDetail }  from './pages/BlogDetail';
 
 // Konfigurasi Apollo Client
 const client = new ApolloClient({

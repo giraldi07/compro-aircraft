@@ -67,7 +67,7 @@ export function Blog() {
               className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden group"
             >
               {/* Link ke Halaman Detail */}
-              <Link to={`/blog/${post.id}`} className="block">
+              <Link to={`/blog/${post.id}`} className="block"> {/* Langsung pakai post.id tanpa btoa() */}
                 {/* Featured Image */}
                 <div className="relative h-56 sm:h-64 md:h-48 lg:h-56 overflow-hidden">
                   <img
@@ -86,7 +86,7 @@ export function Blog() {
                     {post.title}
                   </h3>
                   <p
-                    className="text-gray-600 dark:text-gray-400 flex-1"
+                    className="text-gray-600 dark:text-gray-400 flex-1 line-clamp-4"
                     dangerouslySetInnerHTML={{ __html: post.excerpt }}
                   />
                   <div className="flex items-center justify-between mt-4">
