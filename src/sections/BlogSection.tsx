@@ -41,7 +41,7 @@ export function BlogSection() {
   const latestPosts = data.posts.nodes.slice(0, 3);
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 py-20">
+    <section className="bg-gray-50 dark:bg-gray-950 py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <motion.h2
@@ -61,7 +61,7 @@ export function BlogSection() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden group"
+              className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden group"
             >
               {/* Link ke Halaman Detail */}
               <Link to={`/blog/${post.id}`} className="block">

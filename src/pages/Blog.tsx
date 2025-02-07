@@ -39,7 +39,7 @@ export function Blog() {
   }
 
   return (
-    <div className="py-2 mb-20 bg-gray-50 dark:bg-gray-900">
+    <div className="py-2 bg-gray-50 dark:bg-gray-950 border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
           <HeroBlog />
@@ -71,7 +71,7 @@ export function Blog() {
                 </div>
 
                 {/* Blog Content */}
-                <div className="p-6 flex flex-col">
+                <div className="p-6 flex flex-col dark:bg-gray-900">
                   <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100">
                     {post.title}
                   </h3>

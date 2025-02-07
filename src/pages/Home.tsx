@@ -4,31 +4,47 @@ import { Link } from 'react-router-dom';
 import { Services } from './Services';
 import { Customers } from './Customers';
 import { BlogSection } from '../sections/BlogSection';
+import ImageHero from "../images/bg.jpg";
+
 
 export function Home() {
   return (
     <div>
-      {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative min-h-[calc(100vh-4rem)] flex items-center"
+        transition={{ duration: 1.2 }}
+        className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden"
       >
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80"
-            alt="Aircraft"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
 
+        {/* Background Image with Motion for Paralax Effect */}
+        <motion.div
+          className="absolute inset-0 z-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+        >
+          <motion.div
+            className="w-full h-full"
+            initial={{ y: "20%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          >
+            <img
+              src={ImageHero}
+              alt="Aircraft"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+          <div className="absolute inset-0 bg-black/80" />
+        </motion.div>
+
+        {/* Content Section */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <motion.h1
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 1, ease: "easeOut" }}
             className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6"
           >
             Your Gateway to Aviation Excellence
@@ -36,7 +52,7 @@ export function Home() {
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
             className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 max-w-2xl"
           >
             Leading provider of aircraft equipment, parts, and comprehensive aviation services.
@@ -44,7 +60,7 @@ export function Home() {
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
           >
             <Link
               to="/contact"
@@ -57,8 +73,10 @@ export function Home() {
         </div>
       </motion.section>
 
+
+
       {/* Features Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-800">
+      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -81,7 +99,7 @@ export function Home() {
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="p-6 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                className="p-6 bg-gray-50 dark:bg-gray-900 rounded-lg"
               >
                 <feature.icon className="h-10 w-10 sm:h-12 sm:w-12 text-blue-600 dark:text-blue-400 mb-4" />
                 <h3 className="text-lg sm:text-xl font-semibold mb-2">{feature.title}</h3>
@@ -93,7 +111,7 @@ export function Home() {
       </section>
 
       {/* About Us Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -135,7 +153,7 @@ export function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-900">
+      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Batasi hanya 4 cards yang ditampilkan */}
           <Services limit={4} />
@@ -143,21 +161,21 @@ export function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-900">
+      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Customers />
         </div>
       </section>
 
       {/* News/Blog Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <BlogSection />
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-800">
+      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -173,7 +191,7 @@ export function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-            <div className="p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="p-6 bg-gray-50  dark:bg-gray-900 rounded-lg">
               <h3 className="text-lg sm:text-xl font-semibold mb-4">Our Office</h3>
               <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">
                 123 Aviation Street, Suite 456<br />
@@ -186,7 +204,7 @@ export function Home() {
               </p>
             </div>
 
-            <div className="p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="p-6 bg-gray-50 dark:bg-gray-900 rounded-lg">
               <h3 className="text-lg sm:text-xl font-semibold mb-4">Send Us a Message</h3>
               <form>
                 <div className="mb-4">

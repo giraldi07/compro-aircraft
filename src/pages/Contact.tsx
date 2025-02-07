@@ -1,10 +1,9 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 export function Contact() {
   return (
-    <div className="py-20">
+    <div className="py-20 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -24,7 +23,7 @@ export function Contact() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg"
+            className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg"
           >
             <h2 className="text-2xl font-semibold mb-6">Send us a message</h2>
             <form className="space-y-6">
@@ -60,7 +59,7 @@ export function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors"
+                className="w-full bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded-lg transition-colors"
               >
                 Send Message
               </button>
@@ -74,7 +73,7 @@ export function Contact() {
             transition={{ duration: 0.6 }}
             className="space-y-8"
           >
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
               <div className="flex items-center space-x-4">
                 <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 <div>
@@ -83,7 +82,7 @@ export function Contact() {
                 </div>
               </div>
             </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
               <div className="flex items-center space-x-4">
                 <Phone className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 <div>
@@ -92,7 +91,7 @@ export function Contact() {
                 </div>
               </div>
             </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
               <div className="flex items-center space-x-4">
                 <MapPin className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 <div>

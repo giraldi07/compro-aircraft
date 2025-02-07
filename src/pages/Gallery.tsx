@@ -41,7 +41,7 @@ export function Gallery() {
   if (error) return <p className="text-center text-red-500">Error: {error.message}</p>;
 
   return (
-    <div className="py-20 bg-gray-50 dark:bg-gray-900">
+    <div className="py-20 bg-gray-50 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <motion.div

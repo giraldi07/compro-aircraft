@@ -64,47 +64,50 @@ export function BlogDetail() {
   const post = data.post;
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-6">
-      {/* Breadcrumbs */}
-      <nav className="text-sm text-gray-500 dark:text-gray-400 mb-6 flex items-center space-x-2">
-        <Link to="/" className="hover:underline">
-          Home
-        </Link>
-        <span>/</span>
-        <Link to="/blog" className="hover:underline">
-          Blog
-        </Link>
-        <span>/</span>
-        <span className="text-gray-700 dark:text-gray-300">{post.title}</span>
-      </nav>
+    <div className="container w-full py-10 px-6 dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto h-full">
+        {/* Breadcrumbs */}
+        <nav className="text-sm text-gray-500 dark:text-gray-400 mb-6 flex items-center space-x-2">
+          <Link to="/" className="hover:underline">
+            Home
+          </Link>
+          <span>/</span>
+          <Link to="/blog" className="hover:underline">
+            Blog
+          </Link>
+          <span>/</span>
+          <span className="text-gray-700 dark:text-gray-300">{post.title}</span>
+        </nav>
 
-      {/* Konten Blog */}
-      <article className="max-w-full p-10 mx-auto relative">
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-10 dark:bg-opacity-40 z-10" />
-        
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 leading-tight relative z-20">
-          {post.title}
-        </h1>
-        <div className="text-sm text-gray-500 dark:text-gray-400 mt-2 relative z-20">
-          {new Date(post.date).toLocaleDateString()} • By {post.author.node.name}
-        </div>
+        {/* Konten Blog */}
+        <article className="max-w-full p-10 mx-auto relative">
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black bg-opacity-10 dark:bg-opacity-40 z-10" />
+          
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 leading-tight relative z-20">
+            {post.title}
+          </h1>
+          <div className="text-sm text-gray-500 dark:text-gray-400 mt-2 relative z-20">
+            {new Date(post.date).toLocaleDateString()} • By {post.author.node.name}
+          </div>
 
-        {/* Gambar Artikel */}
-        {post.featuredImage?.node?.sourceUrl && (
-          <img
-            src={post.featuredImage.node.sourceUrl}
-            alt={post.title}
-            className="w-full my-6 rounded-lg max-h-96 object-cover"
+          {/* Gambar Artikel */}
+          {post.featuredImage?.node?.sourceUrl && (
+            <img
+              src={post.featuredImage.node.sourceUrl}
+              alt={post.title}
+              className="w-full my-6 rounded-lg max-h-96 object-cover"
+            />
+          )}
+
+          {/* Konten Artikel dengan spacing bagus */}
+          <div
+            className="prose dark:prose-invert space-y-4 leading-relaxed relative z-20"
+            dangerouslySetInnerHTML={{ __html: post.content }}
           />
-        )}
+        </article>
+      </div>
 
-        {/* Konten Artikel dengan spacing bagus */}
-        <div
-          className="prose dark:prose-invert space-y-4 leading-relaxed relative z-20"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
-      </article>
     </div>
   );
 }

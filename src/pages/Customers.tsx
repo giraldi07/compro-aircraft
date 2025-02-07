@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const customers = [
@@ -24,7 +23,7 @@ const customers = [
 
 export function Customers() {
   return (
-    <div className="py-20">
+    <div className="py-20 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,7 +45,7 @@ export function Customers() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg"
+              className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg"
             >
               <div className="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden">
                 <img

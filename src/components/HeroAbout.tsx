@@ -15,7 +15,7 @@ export function HeroAbout() {
           alt="Blog Banner"
           className="object-cover w-full h-full"
         />
-        <div className="absolute inset-0 bg-black opacity-70" />
+        <div className="absolute inset-0 bg-black opacity-90" />
       </div>
 
 

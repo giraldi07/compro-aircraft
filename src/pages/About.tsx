@@ -33,7 +33,7 @@ export function About() {
   const { mission, vision, companyValues } = data.page.aboutField;
 
   return (
-    <div className="py-2">
+    <div className="py-2 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="border-b border-gray-800 mb-10">
           <div className="mb-10">
