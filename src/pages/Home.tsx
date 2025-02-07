@@ -3,9 +3,9 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Services } from './Services';
 import { BlogSection } from '../sections/BlogSection';
-import ImageHero from "../images/bg.jpg";
 import Popup from '../components/Popup';
 import CustomerSlider from '../components/CustomerSlider';
+import HeroSection from '../sections/HeroSection';
 
 
 
@@ -13,68 +13,17 @@ export function Home() {
   return (
     <div>
       <Popup />
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2 }}
-        className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden"
-      >
 
-        {/* Background Image with Motion for Paralax Effect */}
-        <motion.div
-          className="absolute inset-0 z-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2 }}
-        >
-          <motion.div
-            className="w-full h-full"
-            initial={{ y: "20%" }}
-            animate={{ y: "0%" }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-          >
-            <img
-              src={ImageHero}
-              alt="Aircraft"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-black opacity-60 dark:opacity-80" />
-        </motion.div>
 
-        {/* Content Section */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 1, ease: "easeOut" }}
-            className="text-4xl text-blue-600 dark:text-gray-100 sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6"
-          >
-            Your Gateway to Aviation Excellence
-          </motion.h1>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
-            className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 max-w-2xl"
-          >
-            Leading provider of aircraft equipment, parts, and comprehensive aviation services.
-          </motion.p>
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
-          >
-            <Link
-              to="/contact"
-              className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-base sm:text-lg font-medium transition-colors"
-            >
-              Get Started
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </motion.div>
+
+      {/* Hero Sections */}
+      <section className="w-full bg-white dark:bg-gray-950">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+           <HeroSection />
         </div>
-      </motion.section>
+ 
+      </section>
+
 
 
 
