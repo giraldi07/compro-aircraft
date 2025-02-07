@@ -39,10 +39,11 @@ export function Blog() {
   }
 
   return (
-    <div className="py-20 bg-gray-50 dark:bg-gray-900">
+    <div className="py-2 mb-20 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Memasukkan Hero Section */}
-        <HeroBlog /> {/* Ini adalah Hero yang sudah dipisahkan */}
+        <div className="mb-10">
+          <HeroBlog />
+        </div>
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Plane, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -57,7 +56,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t border-gray-800 text-center">
-          <p className="text-sm sm:text-base text-gray-400">&copy; {new Date().getFullYear()} AeroTrade. All rights reserved.</p>
+          <p className="text-sm sm:text-base text-gray-400">&copy; {new Date().getFullYear()} RaldPra. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Star, ShieldCheck, Lightbulb } from 'lucide-react'; // Import ikon Lucide
 import { useQuery, gql } from '@apollo/client'; // Import Apollo Client for GraphQL queries
+import { HeroAbout } from '../components/HeroAbout';
 
 // GraphQL Query to fetch About page data
 const GET_ABOUT_PAGE = gql`
@@ -32,20 +33,14 @@ export function About() {
   const { mission, vision, companyValues } = data.page.aboutField;
 
   return (
-    <div className="py-20">
+    <div className="py-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Company Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl font-bold mb-6">{data.page.title}</h1>
-          <div className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            <div dangerouslySetInnerHTML={{ __html: data.page.content }} />
+        <div className="border-b border-gray-800 mb-10">
+          <div className="mb-10">
+            <HeroAbout /> {/* Ini adalah Hero yang sudah dipisahkan */}
           </div>
-        </motion.div>
+        </div>
+
 
         {/* Mission & Vision */}
         <motion.div
@@ -73,7 +68,7 @@ export function About() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h2 className="text-3xl font-bold mb-12 text-center">Our Values</h2>
+          <h2 className="text-3xl font-bold mb-12 text-blue-600 text-center">Our Values</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {companyValues.map((value: { title: string; description: string; icon: string }, index: number) => (
               <motion.div
@@ -90,7 +85,7 @@ export function About() {
                   {value.icon === 'ShieldCheck' && <ShieldCheck className="w-8 h-8 text-blue-600 dark:text-blue-400" />}
                   {value.icon === 'Lightbulb' && <Lightbulb className="w-8 h-8 text-blue-600 dark:text-blue-400" />}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
+                <h3 className="text-xl font-semibold text-blue-600 mb-2">{value.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400">{value.description}</p>
               </motion.div>
             ))}
