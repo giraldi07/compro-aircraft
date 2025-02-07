@@ -1,27 +1,24 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useParams, Link } from "react-router-dom";
 import { decode } from "html-entities";
+import { GET_POST_DETAIL } from "../graphql/blogdetail-queries";
 
-// Query GraphQL menggunakan idType DATABASE_ID
-const GET_POST_DETAIL = gql`
-  query GetPostDetail($id: ID!) {
-    post(id: $id, idType: DATABASE_ID) {
-      title
-      content
-      date
-      author {
-        node {
-          name
-        }
-      }
-      featuredImage {
-        node {
-          sourceUrl
-        }
-      }
-    }
-  }
-`;
+type BlogDetail = {
+  title: string;
+  content: string;
+  date: string;
+  author: {
+    node: {
+      name: string;
+    };
+  };
+  featuredImage?: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+};
+
 
 export function BlogDetail() {
   const { id } = useParams<{ id?: string }>(); // Ambil ID dari URL

@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_CUSTOMERS } from "../graphql/queries";
+import { GET_CUSTOMERS } from "../graphql/customer-queries";
 import { motion } from "framer-motion";
 import HeroVideo from "../components/HeroVideo";
 import VideoHero from "../videos/herovid2.mp4";

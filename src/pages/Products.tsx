@@ -1,33 +1,29 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { motion } from 'framer-motion';
+import { GET_PRODUCTS } from '../graphql/products-queries';
 
-const GET_PRODUCTS = gql`
-  query GetProducts {
-    products {
-      nodes {
-        id
-        title
-        productField {
-          productName
-          description
-          category
-          productImage {
-            node {
-              id
-              sourceUrl
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+type Products = {
+  id: string;
+  title: string;
+  productField: {
+    productName: string;
+    description: string;
+    category: string;
+    productImage?: {
+      node: {
+        id: string;
+        sourceUrl: string;
+      };
+    };
+  };
+};
+
 
 export function Products() {
   const { loading, error, data } = useQuery(GET_PRODUCTS);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">Error loading services</p>;
 
   return (
     <div className="py-20 dark:bg-gray-950">

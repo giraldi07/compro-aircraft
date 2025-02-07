@@ -1,23 +1,20 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { motion } from 'framer-motion';
 import { Wrench, PenTool as Tool, Cog, Palette, Plane, Users, Briefcase, LucideIcon } from 'lucide-react';
+import { GET_OUR_SERVICES_PAGE } from '../graphql/ourservices-queries';
 
-// GraphQL Query untuk mendapatkan data layanan dari WordPress
-const GET_OUR_SERVICES_PAGE = gql`
-  query {
-    page(id: "37", idType: DATABASE_ID) {
-      title
-      content
-      ourServicesFields {
-        services {
-          title
-          description
-          icon
-        }
-      }
-    }
-  }
-`;
+type Services = {
+  title: string;
+  content: string;
+  ourServicesFields: {
+    services: {
+      title: string;
+      description: string;
+      icon: string;
+    }[];
+  };
+};
+
 
 // Mapping ikon berdasarkan keyword yang ada di dalam data WordPress
 const iconMap: Record<string, LucideIcon> = {

@@ -1,27 +1,23 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_GALLERY_PAGE } from "../graphql/gallery-queries";
 
-// GraphQL Query untuk mengambil data halaman 'gallery' beserta field gallery-nya
-const GET_GALLERY_PAGE = gql`
-  query GetGalleryPage {
-    page(id: "32", idType: DATABASE_ID) {
-      title
-      content
-      galleryField {
-        gallery(first: 10) {  # Menggunakan "first" untuk mengambil 10 gambar pertama
-          edges {
-            node {
-              id
-              mediaItemUrl  # Ambil URL gambar
-              altText       # Ambil teks alternatif
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+type Gallery = {
+  title: string;
+  content: string;
+  galleryField: {
+    gallery: {
+      edges: {
+        node: {
+          id: string;
+          mediaItemUrl: string;
+          altText: string;
+        };
+      }[];
+    };
+  };
+};
 
 export function Gallery() {
   const { loading, error, data } = useQuery(GET_GALLERY_PAGE);

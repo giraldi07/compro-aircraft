@@ -1,31 +1,25 @@
 import { motion } from "framer-motion";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { HeroBlog } from "../components/HeroBlog"; // Mengimpor Hero
+import { GET_POSTS } from "../graphql/blog-queries";
 
-// GraphQL query untuk mendapatkan posts dari WordPress
-const GET_POSTS = gql`
-  query GetPosts {
-    posts {
-      nodes {
-        id
-        title
-        excerpt
-        date
-        author {
-          node {
-            name
-          }
-        }
-        featuredImage {
-          node {
-            sourceUrl
-          }
-        }
-      }
-    }
-  }
-`;
+type Blog = {
+  id: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  author: {
+    node: {
+      name: string;
+    };
+  };
+  featuredImage?: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+};
 
 export function Blog() {
   const { loading, error, data } = useQuery(GET_POSTS);

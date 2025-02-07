@@ -1,33 +1,35 @@
 import { motion } from 'framer-motion';
 import { Star, ShieldCheck, Lightbulb } from 'lucide-react'; // Import ikon Lucide
-import { useQuery, gql } from '@apollo/client'; // Import Apollo Client for GraphQL queries
+import { useQuery } from '@apollo/client'; // Import Apollo Client for GraphQL queries
 import { HeroAbout } from '../components/HeroAbout';
+import { GET_ABOUT_PAGE } from '../graphql/about-queries';
 
-// GraphQL Query to fetch About page data
-const GET_ABOUT_PAGE = gql`
-  query GetAboutPage {
-    page(id: "65", idType: DATABASE_ID) {
-      title
-      content
-      aboutField {
-        mission
-        vision
-        companyValues {
-          title
-          description
-          icon
-        }
-      }
-    }
-  }
-`;
+type About = {
+  title: string;
+  content: string;
+  aboutField: {
+    mission: string;
+    vision: string;
+    companyValues: {
+      title: string;
+      description: string;
+      icon: string;
+    }[];
+  };
+};
+
 
 export function About() {
   // Use Apollo's useQuery hook to fetch data from WordPress
   const { loading, error, data } = useQuery(GET_ABOUT_PAGE);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) {
+    return <p className="text-center text-gray-600 dark:text-gray-400">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center text-red-500">Error: {error.message}</p>;
+  }
 
   // Destructure the data fetched from GraphQL query
   const { mission, vision, companyValues } = data.page.aboutField;

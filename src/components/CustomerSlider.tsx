@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_CUSTOMERS } from "../graphql/queries";
+import { GET_CUSTOMERS } from "../graphql/customer-queries";
 import { motion } from "framer-motion";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -31,7 +31,7 @@ const CustomerSlider = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -41,15 +41,36 @@ const CustomerSlider = () => {
       {
         breakpoint: 768, // Tablet and mobile
         settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 568, // Tablet and mobile
+        settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 1300, // Tablet and mobile
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 986, // Tablet and mobile
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
         },
       },
     ],
   };
 
   return (
-    <div className="py-20">
+    <div className="py-10">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,7 +83,7 @@ const CustomerSlider = () => {
             Trusted by leading aviation companies worldwide.
           </p>
         </motion.div>
-        <motion.div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Slider {...settings}>
             {customers.map((customer, index) => (
               <div key={index} className="flex justify-center p-4">
