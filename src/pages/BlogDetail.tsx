@@ -79,11 +79,14 @@ export function BlogDetail() {
       </nav>
 
       {/* Konten Blog */}
-      <article className="max-w-full mx-auto">
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 leading-tight">
+      <article className="max-w-full p-10 mx-auto relative">
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-10 dark:bg-opacity-40 z-10" />
+        
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 leading-tight relative z-20">
           {post.title}
         </h1>
-        <div className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+        <div className="text-sm text-gray-500 dark:text-gray-400 mt-2 relative z-20">
           {new Date(post.date).toLocaleDateString()} • By {post.author.node.name}
         </div>
 
@@ -98,7 +101,7 @@ export function BlogDetail() {
 
         {/* Konten Artikel dengan spacing bagus */}
         <div
-          className="prose dark:prose-invert space-y-4 leading-relaxed"
+          className="prose dark:prose-invert space-y-4 leading-relaxed relative z-20"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </article>
