@@ -1,27 +1,28 @@
-import { motion } from 'framer-motion';
+import { useQuery } from "@apollo/client";
+import { GET_CUSTOMERS } from "../graphql/queries";
+import { motion } from "framer-motion";
 
-const customers = [
-  {
-    id: 1,
-    name: 'AirFleet Corp',
-    logo: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80',
-    testimonial: 'Outstanding service and quality products. A trusted partner in our operations.',
-  },
-  {
-    id: 2,
-    name: 'SkyTech Industries',
-    logo: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80',
-    testimonial: 'Their expertise in aviation equipment has been invaluable to our business.',
-  },
-  {
-    id: 3,
-    name: 'Global Airways',
-    logo: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80',
-    testimonial: 'Reliable, professional, and always delivering beyond expectations.',
-  },
-];
+type Customer = {
+  title: string;
+  customerField: {
+    customerName: string;
+    customerTestimonial: string;
+    customerLogo: {
+      node: {
+        mediaItemUrl: string;
+      };
+    };
+  };
+};
 
 export function Customers() {
+  const { data, loading, error } = useQuery(GET_CUSTOMERS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  const customers: Customer[] = data?.customers?.nodes || [];
+
   return (
     <div className="py-20 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,7 +41,7 @@ export function Customers() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {customers.map((customer, index) => (
             <motion.div
-              key={customer.id}
+              key={customer.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -49,14 +50,16 @@ export function Customers() {
             >
               <div className="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden">
                 <img
-                  src={customer.logo}
-                  alt={customer.name}
+                  src={customer.customerField.customerLogo.node.mediaItemUrl}
+                  alt={customer.customerField.customerName}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="text-xl font-semibold text-center mb-4">{customer.name}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-center italic">
-                "{customer.testimonial}"
+              <h3 className="text-xl font-semibold text-center mb-4">
+                {customer.customerField.customerName}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-center italic line-clamp-2">
+                "{customer.customerField.customerTestimonial}"
               </p>
             </motion.div>
           ))}

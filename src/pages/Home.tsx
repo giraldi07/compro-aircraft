@@ -2,10 +2,11 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Services } from './Services';
-import { Customers } from './Customers';
 import { BlogSection } from '../sections/BlogSection';
 import ImageHero from "../images/bg.jpg";
 import Popup from '../components/Popup';
+import CustomerSlider from '../components/CustomerSlider';
+
 
 
 export function Home() {
@@ -162,17 +163,18 @@ export function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-950">
+
+      {/* News/Blog Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-100 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Customers />
+            <BlogSection />
         </div>
       </section>
 
-      {/* News/Blog Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gray-50 dark:bg-gray-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <BlogSection />
+      {/* CustomerSlider Section */}
+      <section className="py-12 sm:py-16 md:py-20  bg-gray-50 dark:bg-slate-950">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <CustomerSlider />
         </div>
       </section>
 
