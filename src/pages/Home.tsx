@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Services } from './Services';
 import { Customers } from './Customers';
-import { Blog } from './Blog';
+import { BlogSection } from '../sections/BlogSection';
 
 export function Home() {
   return (
@@ -152,7 +152,7 @@ export function Home() {
       {/* News/Blog Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Blog />
+            <BlogSection />
         </div>
       </section>
 
