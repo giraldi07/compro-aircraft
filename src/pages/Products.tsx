@@ -62,7 +62,7 @@ export function Products() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{product.productField.productName}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{product.productField.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 line-clamp-2">{product.productField.description}</p>
                 <button className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                   Learn More
                 </button>

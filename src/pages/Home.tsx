@@ -6,25 +6,26 @@ import { BlogSection } from '../sections/BlogSection';
 import Popup from '../components/Popup';
 import CustomerSlider from '../components/CustomerSlider';
 import HeroSection from '../sections/HeroSection';
+import { ProductSection } from '../sections/ProductSection';
 
 
 
 export function Home() {
   return (
-    <div>
+    <div className="w-full mx-auto">
       <Popup />
 
 
 
       {/* Hero Sections */}
       <section className="w-full bg-white dark:bg-gray-950">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
            <HeroSection />
-        </div>
- 
       </section>
 
-
+      {/* Products Sections */}
+      <section className="w-full bg-white dark:bg-gray-950">
+           <ProductSection />
+      </section>
 
 
       {/* Features Section */}
