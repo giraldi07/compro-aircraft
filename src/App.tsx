@@ -11,6 +11,7 @@ import { Customers } from './pages/Customers';
 import { Blog } from './pages/Blog';
 import { Contact } from './pages/Contact';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { BlogDetail } from './pages/BlogDetail';
 
 // Konfigurasi Apollo Client
 const client = new ApolloClient({
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:id" element={<BlogDetail />} />
                 <Route path="/contact" element={<Contact />} />
               </Routes>
             </main>
