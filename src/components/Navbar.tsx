@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Plane, Menu, X } from 'lucide-react';
-
+import { Plane, Menu } from 'lucide-react';
+import { Sidebar } from './Sidebar';
 
 const navigation = [
   { name: 'Home', path: '/' },
@@ -18,8 +17,6 @@ const navigation = [
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const location = useLocation();
-
-
 
   return (
     <nav className="fixed w-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm z-50">
@@ -46,48 +43,22 @@ export function Navbar() {
                 {item.name}
               </Link>
             ))}
-
-
           </div>
 
           <div className="md:hidden flex items-center">
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setIsOpen(true)}
               className="text-gray-700 dark:text-gray-300 p-2"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <Menu className="h-6 w-6" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <motion.div
-        initial={{ opacity: 0, y: -100 }}
-        animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : -100 }}
-        transition={{ duration: 0.3 }}
-        className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 shadow-lg">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                location.pathname === item.path
-                  ? 'text-blue-600 dark:text-blue-400'
-                  : 'text-gray-700 dark:text-gray-300'
-              }`}
-              onClick={() => setIsOpen(false)}
-            >
-              {item.name}
-            </Link>
-          ))}
-
-
-        </div>
-      </motion.div>
+      {/* Sidebar (Mobile Menu) */}
+      <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} navigation={navigation} />
     </nav>
   );
 }
