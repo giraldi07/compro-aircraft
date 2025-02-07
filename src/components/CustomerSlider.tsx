@@ -78,8 +78,8 @@ const CustomerSlider = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl font-bold mb-6">Our Clients</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+          <h1 className="text-3xl font-bold mb-6">Our Clients</h1>
+          <p className="text-md text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Trusted by leading aviation companies worldwide.
           </p>
         </motion.div>

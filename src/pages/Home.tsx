@@ -7,6 +7,7 @@ import Popup from '../components/Popup';
 import CustomerSlider from '../components/CustomerSlider';
 import HeroSection from '../sections/HeroSection';
 import { ProductSection } from '../sections/ProductSection';
+import { BrandIconSection } from '../sections/BrandIconSection';
 
 
 
@@ -18,8 +19,13 @@ export function Home() {
 
 
       {/* Hero Sections */}
-      <section className="w-full bg-white dark:bg-gray-950">
+      <section className="w-full bg-gray-50 dark:bg-gray-950">
            <HeroSection />
+      </section>
+
+      {/* Brand Icons Sections */}
+      <section className="w-full bg-white dark:bg-gray-950">
+           <BrandIconSection />
       </section>
 
       {/* Products Sections */}
