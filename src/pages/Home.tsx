@@ -5,11 +5,13 @@ import { Services } from './Services';
 import { Customers } from './Customers';
 import { BlogSection } from '../sections/BlogSection';
 import ImageHero from "../images/bg.jpg";
+import Popup from '../components/Popup';
 
 
 export function Home() {
   return (
     <div>
+      <Popup />
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -36,7 +38,7 @@ export function Home() {
               className="w-full h-full object-cover"
             />
           </motion.div>
-          <div className="absolute inset-0 bg-black/80" />
+          <div className="absolute inset-0 bg-black opacity-60 dark:opacity-80" />
         </motion.div>
 
         {/* Content Section */}
@@ -45,7 +47,7 @@ export function Home() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 1, ease: "easeOut" }}
-            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6"
+            className="text-4xl text-blue-600 dark:text-gray-100 sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6"
           >
             Your Gateway to Aviation Excellence
           </motion.h1>
