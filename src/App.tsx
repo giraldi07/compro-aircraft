@@ -12,6 +12,7 @@ import { Blog } from './pages/Blog';
 import { Contact } from './pages/Contact';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BlogDetail }  from './pages/BlogDetail';
+import FloatingActions from './components/FloatingActions';
 
 // Konfigurasi Apollo Client
 const client = new ApolloClient({
@@ -40,6 +41,7 @@ function App() {
               </Routes>
             </main>
             <Footer />
+            <FloatingActions />
           </div>
         </ThemeProvider>
       </Router>

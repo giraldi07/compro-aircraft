@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Plane, Menu, X, Sun, Moon } from 'lucide-react';
-import { useTheme } from './ThemeProvider';
+import { Plane, Menu, X } from 'lucide-react';
+
 
 const navigation = [
   { name: 'Home', path: '/' },
@@ -17,13 +17,9 @@ const navigation = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { theme, setTheme } = useTheme();
   const location = useLocation();
 
-  const toggleTheme = () => {
-    // Toggle theme based on the current one
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
+
 
   return (
     <nav className="fixed w-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm z-50">
@@ -51,17 +47,7 @@ export function Navbar() {
               </Link>
             ))}
 
-            <button
-              onClick={toggleTheme}
-              className="ml-2 lg:ml-4 p-2 text-gray-700 dark:text-gray-300"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <Sun className="h-6 w-6 text-yellow-500" />
-              ) : (
-                <Moon className="h-6 w-6 text-blue-500" />
-              )}
-            </button>
+
           </div>
 
           <div className="md:hidden flex items-center">
@@ -99,19 +85,7 @@ export function Navbar() {
             </Link>
           ))}
 
-          <div className="px-3 py-2">
-            <button
-              onClick={toggleTheme}
-              className="w-full p-2 text-gray-700 dark:text-gray-300"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <Sun className="h-6 w-6 text-yellow-500" />
-              ) : (
-                <Moon className="h-6 w-6 text-blue-500" />
-              )}
-            </button>
-          </div>
+
         </div>
       </motion.div>
     </nav>
