@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_CUSTOMERS = gql`
   query GetCustomers {
-    customers {
+    customers(first: 100) {
       nodes {
         title
         customerField {
