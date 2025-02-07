@@ -73,7 +73,7 @@ export function Blog() {
 
                   {/* Blog Content */}
                   <div className="p-6 flex flex-col dark:bg-gray-900">
-                    <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100 ine-clamp-1">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100 line-clamp-1">
                       {post.title}
                     </h3>
                     <p
