@@ -64,25 +64,44 @@ export function BlogDetail() {
   const post = data.post;
 
   return (
-    <div className="max-w-3xl mx-auto py-20 px-4">
-      {/* Breadcrumb untuk navigasi */}
-      <nav className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+    <div className="max-w-7xl mx-auto py-10 px-6">
+      {/* Breadcrumbs */}
+      <nav className="text-sm text-gray-500 dark:text-gray-400 mb-6 flex items-center space-x-2">
         <Link to="/" className="hover:underline">
           Home
-        </Link>{" "}
-        /{" "}
+        </Link>
+        <span>/</span>
         <Link to="/blog" className="hover:underline">
           Blog
-        </Link>{" "}
-        / <span className="text-gray-700 dark:text-gray-300">{post.title}</span>
+        </Link>
+        <span>/</span>
+        <span className="text-gray-700 dark:text-gray-300">{post.title}</span>
       </nav>
 
       {/* Konten Blog */}
-      <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100">{post.title}</h1>
-      <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(post.date).toLocaleDateString()}</p>
-      <p className="text-gray-700 dark:text-gray-300">By {post.author.node.name}</p>
-      <img src={post.featuredImage?.node?.sourceUrl} alt={post.title} className="w-full my-6 rounded-lg" />
-      <div className="prose dark:prose-invert" dangerouslySetInnerHTML={{ __html: post.content }} />
+      <article className="max-w-full mx-auto">
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 leading-tight">
+          {post.title}
+        </h1>
+        <div className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+          {new Date(post.date).toLocaleDateString()} • By {post.author.node.name}
+        </div>
+
+        {/* Gambar Artikel */}
+        {post.featuredImage?.node?.sourceUrl && (
+          <img
+            src={post.featuredImage.node.sourceUrl}
+            alt={post.title}
+            className="w-full my-6 rounded-lg max-h-96 object-cover"
+          />
+        )}
+
+        {/* Konten Artikel dengan spacing bagus */}
+        <div
+          className="prose dark:prose-invert space-y-4 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      </article>
     </div>
   );
 }
