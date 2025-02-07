@@ -40,7 +40,7 @@ export function Blog() {
 
   return (
     <div className="py-2 bg-gray-50 dark:bg-gray-950 border-b border-gray-800">
-      <div className="container w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto h-full mb-20">
           <div className="mb-10">
             <HeroBlog />

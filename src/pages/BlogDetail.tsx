@@ -1,5 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 import { useParams, Link } from "react-router-dom";
+import { decode } from "html-entities";
 
 // Query GraphQL menggunakan idType DATABASE_ID
 const GET_POST_DETAIL = gql`
@@ -64,7 +65,7 @@ export function BlogDetail() {
   const post = data.post;
 
   return (
-    <div className="container w-full py-10 px-6 dark:bg-gray-950">
+    <div className="w-full py-10 px-6 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto h-full">
         {/* Breadcrumbs */}
         <nav className="text-sm text-gray-500 dark:text-gray-400 mb-6 flex items-center space-x-2">
@@ -101,10 +102,12 @@ export function BlogDetail() {
           )}
 
           {/* Konten Artikel dengan spacing bagus */}
+
           <div
-            className="prose dark:prose-invert space-y-4 leading-relaxed relative z-20"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            className="prose dark:prose-invert max-w-none leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: decode(post.content) }}
           />
+
         </article>
       </div>
 
