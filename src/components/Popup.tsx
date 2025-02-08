@@ -8,11 +8,10 @@ const Popup: React.FC = () => {
 
   useEffect(() => {
     const lastSeenPopup = sessionStorage.getItem("lastSeenPopup");
-    const isSubscribed = sessionStorage.getItem("isSubscribed"); // Cek apakah sudah subscribe
+    const isSubscribed = sessionStorage.getItem("isSubscribed");
     const currentTime = new Date().getTime();
-    const intervalMilliseconds = 5000; // 5 detik untuk pengujian
+    const intervalMilliseconds = 5000;
 
-    // Tampilkan popup hanya jika belum subscribe & interval waktu sudah lewat
     if (!isSubscribed && (!lastSeenPopup || currentTime - Number(lastSeenPopup) > intervalMilliseconds)) {
       setShowPopup(true);
       sessionStorage.setItem("lastSeenPopup", String(currentTime));
@@ -23,10 +22,9 @@ const Popup: React.FC = () => {
     setShowPopup(false);
   };
 
-  // Saat tombol Subscribe ditekan, simpan statusnya di sessionStorage
   const handleSubscribe = () => {
-    sessionStorage.setItem("isSubscribed", "true"); // Simpan status subscribe
-    setShowPopup(false); // Tutup popup
+    sessionStorage.setItem("isSubscribed", "true");
+    setShowPopup(false);
   };
 
   return (
@@ -41,14 +39,13 @@ const Popup: React.FC = () => {
           onClick={handleClose}
         >
           <motion.div
-            className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full flex flex-col md:flex-row relative overflow-hidden"
+            className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-[90%] max-w-sm sm:max-w-md md:max-w-lg flex flex-col md:flex-row relative overflow-hidden"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.6, opacity: 0 }} // Efek mengecil saat ditutup
+            exit={{ scale: 0.6, opacity: 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            onClick={(e) => e.stopPropagation()} // Mencegah klik di luar menutup popup
+            onClick={(e) => e.stopPropagation()}
           >
-            {/* Gambar Samping */}
             <div className="md:w-1/2 w-full hidden md:block">
               <img
                 src={PopupImage}
@@ -57,30 +54,26 @@ const Popup: React.FC = () => {
               />
             </div>
 
-            {/* Konten Popup */}
-            <div className="p-6 md:w-1/2 w-full flex flex-col">
+            <div className="p-6 w-full md:w-1/2 flex flex-col">
               <button
                 onClick={handleClose}
                 className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
               >
                 <X size={20} />
               </button>
-
               <h2 className="text-xl font-bold text-black dark:text-white">
                 Join Our Newsletter!
               </h2>
               <p className="text-gray-700 dark:text-gray-300 mt-2 text-sm">
                 Get the latest updates and exclusive content straight to your inbox.
               </p>
-
               <input
                 type="email"
                 placeholder="Enter your email"
                 className="mt-4 p-2 border rounded-md w-full text-black"
               />
-
               <button
-                onClick={handleSubscribe} // Pastikan memanggil handleSubscribe
+                onClick={handleSubscribe}
                 className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg w-full"
               >
                 Subscribe
